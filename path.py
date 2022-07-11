@@ -40,10 +40,17 @@ def list_dir(dir_path, condition=lambda x: True):
 
 	Args:
 		dir_path (_type_): target folder path
-		condition (_type_): function or lambda
+		condition (_type_): filter, a function or lambda
 
 	Returns:
 		_type_: a list of file path
 	"""
-	res = [os.path.join(dir_path, f) for f in os.listdir(dir_path) if condition(f)]
+	res = [os.path.join(dir_path, f) for f in os.listdir(dir_path)] # list all
+	res = [item for item in res if condition(item)] # filter
 	return res
+
+def file_name(path, extension = True):
+	base=os.path.basename(path)
+	if not extension:
+		base = os.path.splitext(base)[0]
+	return base
